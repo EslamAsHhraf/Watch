@@ -73,9 +73,12 @@ There are two primary ways to run this application: using Docker (recommended fo
 
 *   **Authentication:** JWT was chosen for session management. Tokens are stored in `localStorage` on the client-side. The backend provides `/register` and `/login` endpoints. A protected `/api/me` endpoint is included to verify tokens and fetch basic user info.
 *   **Security:** Passwords are hashed using `bcrypt`. JWTs have an expiration time (1 hour). Basic input validation is present. CORS is enabled on the backend. Further security hardening (rate limiting, more complex validation, HTTPS enforcement in production) would be needed for a real-world application.
-*   **Video:** Standard HTML5 `<video>` tag is used on the protected page, loading the sample Big Buck Bunny URL directly as allowed.
 
 
+## <img  align= center width= 70px height =70px src="https://img.genial.ly/5f91608064ad990c6ee12237/bd7195a3-a8bb-494b-8a6d-af48dd4deb4b.gif?genial&1643587200063">  GIF Demo <a id ="video"></a>
+
+<video src="https://github.com/user-attachments/assets/a52e6ea5-beaf-4d3e-8dbd-b1e37763bdff" >
+</video> 
 
 ## Potential Improvements / Trade-offs
 
