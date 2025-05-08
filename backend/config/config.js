@@ -12,7 +12,7 @@ module.exports = {
   },
   production: {
     dialect: "sqlite",
-    storage: process.env.DATABASE_URL || path.join(__dirname, "../database_prod.sqlite"), // Use env var or file for prod
+    storage: process.env.DATABASE_URL || path.join(__dirname, "../database_dev.sqlite"), // Use env var or file for prod
     // Add any production-specific SQLite options here if needed
   },
 };

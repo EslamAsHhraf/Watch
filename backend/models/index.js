@@ -15,7 +15,6 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-const BlacklistedToken = require("./blacklistedToken")(sequelize);
 
 fs
   .readdirSync(__dirname)
@@ -43,9 +42,3 @@ db.Sequelize = Sequelize;
 
 module.exports = db;
 
-// module.exports = {
-//   sequelize,
-//   Sequelize,
-//   BlacklistedToken,
-//   db
-// };

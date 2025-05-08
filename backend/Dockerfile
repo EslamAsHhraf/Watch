@@ -1,27 +1,23 @@
 # Use an official Node.js runtime as a parent image
-FROM node:20-alpine
+FROM node:20
 
-# Set the working directory in the container
+# Install dependencies for building native modules
+RUN apt-get update && apt-get install -y \
+  python3 \
+  make \
+  g++
+
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (or yarn.lock) first
-# This leverages Docker cache layers
+# Only copy package files to install dependencies
 COPY package*.json ./
 
-# Install app dependencies
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --omit=dev
+# Install deps and build native modules like sqlite3 from source
+RUN npm install --build-from-source
 
-# Copy the rest of the application code into the container
+# Now copy the rest of the app
 COPY . .
 
-# Make port 5001 available to the world outside this container
 EXPOSE 5001
 
-# Define environment variable (optional, can be set via docker-compose)
-# ENV NODE_ENV production
-
-# Run the app when the container launches
 CMD [ "node", "server.js" ]
-

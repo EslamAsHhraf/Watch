@@ -31,22 +31,9 @@ const PORT = process.env.PORT || 5001;
 // Sync database and start server
 async function startServer() {
   try {
-    // Use authenticate() for connection check, sync() is not needed if using migrations
     await sequelize.authenticate();
     console.log("Database connection established successfully.");
 
-    // Optional: Run migrations programmatically if needed (usually done via CLI)
-    // const { Umzug, SequelizeStorage } = require("umzug");
-    // const umzug = new Umzug({
-    //   migrations: { glob: "migrations/*.js" },
-    //   context: sequelize.getQueryInterface(),
-    //   storage: new SequelizeStorage({ sequelize }),
-    //   logger: console,
-    // });
-    // await umzug.up();
-    // console.log("Migrations applied successfully.");
-
-    // Start the server after successful DB connection
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
