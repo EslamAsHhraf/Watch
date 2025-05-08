@@ -1,22 +1,17 @@
-# Use an official Node runtime as a parent image
 FROM node:20-alpine as build
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json .
 
 RUN npm install
+
+RUN npm i -g serve
 
 COPY . .
 
 RUN npm run build
 
-# Production stage - Use a lightweight Nginx server
-FROM nginx:stable-alpine
+EXPOSE 3000
 
-COPY --from=build /app/dist /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-
+CMD [ "serve", "-s", "dist" ]
