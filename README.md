@@ -266,7 +266,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ## <img  align= center width= 70px height =70px src="https://img.genial.ly/5f91608064ad990c6ee12237/bd7195a3-a8bb-494b-8a6d-af48dd4deb4b.gif?genial&1643587200063">  GIF Demo <a id ="video"></a>
 
-<video src="https://github.com/user-attachments/assets/f7d5a880-0bdd-4b4d-ade0-2f249b1f5a69" >
+<video src="https://github.com/user-attachments/assets/66306739-dccf-454b-8e1f-fb3704d4da5a" >
 </video> 
 
 ## Potential Improvements / Trade-offs
