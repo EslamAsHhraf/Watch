@@ -10,10 +10,6 @@ const app = express();
 app.use(cors()); // Enable CORS for all routes (adjust origins in production)
 app.use(express.json()); // Parse JSON request bodies
 
-// Basic Route
-app.get("/", (req, res) => {
-  res.send("Secure Video Viewer Backend API");
-});
 
 // Auth Routes
 app.use("/api/auth", authRoutes);
