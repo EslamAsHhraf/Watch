@@ -69,6 +69,195 @@ There are two primary ways to run this application: using Docker (recommended fo
 
 
 
+## Backend API Documentation
+
+### 1. Register User
+
+**Endpoint:** `POST /api/auth/register`
+
+**Request:**
+```json
+{
+  "email": "user@example.com",
+  "password": "SecureP@ss123"
+}
+```
+
+**Response - Success (201):**
+```json
+{
+  "message": "User registered successfully",
+  "userId": "123"
+}
+```
+
+**Response - Error (400) - User Exists:**
+```json
+{
+  "message": "User already exists"
+}
+```
+
+**Response - Error (400) - Password Validation:**
+```json
+{
+  "message": "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character"
+}
+```
+
+**Response - Error (500):**
+```json
+{
+  "message": "Server error during registration"
+}
+```
+
+### 2. Login User
+
+**Endpoint:** `POST /api/auth/login`
+
+**Request:**
+```json
+{
+  "email": "user@example.com",
+  "password": "SecureP@ss123"
+}
+```
+
+**Response - Success (200):**
+```json
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+**Response - Error (401):**
+```json
+{
+  "message": "Invalid credentials"
+}
+```
+
+**Response - Error (500):**
+```json
+{
+  "message": "Server error during login"
+}
+```
+
+### 3. Get Current User
+
+**Endpoint:** `GET /api/auth/me`
+
+**Headers:**
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+**Response - Success (200):**
+```json
+{
+  "userId": "123",
+  "email": "user@example.com"
+}
+```
+
+**Response - Error (401):**
+```
+401 Unauthorized
+```
+
+**Response - Error (403):**
+```
+403 Forbidden
+```
+
+### 4. Logout User
+
+**Endpoint:** `POST /api/auth/logout`
+
+**Headers:**
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+**Response - Success (200):**
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+**Response - Error (401) - No Token:**
+```json
+{
+  "message": "No token provided"
+}
+```
+
+**Response - Error (401) - Blacklisted Token:**
+```json
+{
+  "message": "Token is no longer valid"
+}
+```
+
+**Response - Error (400):**
+```json
+{
+  "message": "Invalid token format"
+}
+```
+
+**Response - Error (500):**
+```json
+{
+  "message": "Server error during logout"
+}
+```
+
+
+## Frontend Pages
+
+### 1. Login Page
+- **Route**: `/login`
+- **Features**:
+  - Email/username input
+  - Password input
+  - Submit button
+  - Link to registration page
+  - Error messages for failed login attempts
+
+### 2. Register Page
+- **Route**: `/register`
+- **Features**:
+  - Email input
+  - Password input with confirmation
+  - Submit button
+  - Link to login page
+  - Form validation
+
+### 3. Video Page (Protected)
+- **Route**: `/video`
+- **Features**:
+  - Requires authentication to access
+  - Displays video content
+  - Shows user information
+  - Logout button
+
+## Implementation Flow
+
+1. User registers via `/register` page
+2. Registration data is sent to `/api/auth/register` endpoint
+3. Upon successful registration, user is redirected to `/login` page
+4. User enters credentials on login page
+5. Login data is sent to `/api/auth/login` endpoint
+6. On successful login, token is stored and user is redirected to `/video` page
+7. The `/video` page loads and fetches user data from `/api/auth/me` endpoint
+8. When user logs out, the `/api/auth/logout` endpoint is called and user is redirected to login
+
+
 ## Technology Choices & Assumptions
 
 *   **Authentication:** JWT was chosen for session management. Tokens are stored in `localStorage` on the client-side. The backend provides `/register` and `/login` endpoints. A protected `/api/me` endpoint is included to verify tokens and fetch basic user info.
